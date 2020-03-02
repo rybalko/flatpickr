@@ -173,18 +173,21 @@ function FlatpickrInstance(
       setDefaultTime();
     }
 
+    let type = null;
     if (e !== undefined && e.type !== "blur") {
+      type =  e.type;
       timeWrapper(e);
     }
 
-    const prevValue = self._input.value;
-
     setHoursFromInputs();
-    updateValue();
-
-    if (self._input.value !== prevValue) {
-      self._debouncedChange();
+    if (type == "increment") {
+        updateValue();
+    } else {
+        self.input.value = self._input.value;
     }
+
+    self._debouncedChange();
+
   }
 
   function ampm2military(hour: number, amPM: string) {
